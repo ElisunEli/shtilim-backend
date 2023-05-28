@@ -4,11 +4,12 @@ import mongoose from "mongoose"
 export interface IStudentsModel extends mongoose.Document{
     firstName: string,
     lastName: string,
-    IdNumber: number,
-    DateOfBirth: Date,
-    Gander: string,
-    Address: string,
+    dateOfBirth: Date,
+    gander: string,
+    address: string,
     createdIn: Date
+    plans: string[],
+    group: string
 }
 
 // 2. schema
@@ -23,21 +24,16 @@ export const StudentsSchema = new mongoose.Schema<IStudentsModel>({
         required: [true, "Missing last name"],
         trim: true
     },
-    IdNumber: {
-        type: Number,
-        required: [true, "Missing id"],
-        trim: true
-    },
-    DateOfBirth: {
+    dateOfBirth: {
         type: Date,
         required: [true, "Missing date of birth"]
     },
-    Gander: {
+    gander: {
         type: String,
         required: [true, "Missing gander"],
         trim: true
     },
-    Address: {
+    address: {
         type: String,
         required: [true, "Missing address"],
         trim: true
@@ -45,7 +41,16 @@ export const StudentsSchema = new mongoose.Schema<IStudentsModel>({
     createdIn: {
         type: Date,
         default: Date.now()
+    },
+    plans: {
+        type: [],
+        trim: true
+    },
+    group: {
+        type: String,
+        trim: true
     }
+    
 })
 
 // 3. Model
