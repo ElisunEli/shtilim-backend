@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import express, { Request, Response } from "express";
 import usersController from "./controllers/usersController"
+import studentsController from "./controllers/studentsController"
 import cors from "cors"
 import dl from "./utils/dl";
 
@@ -13,7 +14,8 @@ server.use( cors() );
 
 server.use(express.json());
 
-server.use("/api", usersController );
+server.use("/api", usersController);
+server.use("/api", studentsController);
 
 server.get("/", function( req:Request, response:Response ){
     response.send("API 1.0.0");
