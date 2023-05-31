@@ -1,57 +1,58 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import plansService from "../services/plansService";
 import { PlansModel } from "../models/plansModel";
 
 const router = express.Router();
 
 
-router.get("/plans", async function( req:Request, response:Response ){
+router.get("/plans", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const plans = await plansService.getAllPlans()
-        response.json( plans );
-    } catch (error) { 
-        response.status(400).json( error.message );
+        response.json(plans);
+    } catch (error) {
+        next(error);
     }
 });
 
-router.get("/plans/:_id", async function( req:Request, response:Response ){
+router.get("/plans/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        const plan = await plansService.getOnePlan( _id )
-        response.json( plan );
-    } catch (error) { 
-        response.status(400).json( error.message );
+        const plan = await plansService.getOnePlan(_id)
+        response.json(plan);
+    } catch (error) {
+        next(error);
     }
 });
 
-router.put("/plans/:_id", async function( req:Request, response:Response ){
+router.put("/plans/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        const newPlan = new PlansModel( req.body );
-        const plan = await plansService.updateOnePlan( _id, newPlan )
-        response.json( plan );
-    } catch (error) { 
-        response.status(400).json( error.message );
+        const newPlan = new PlansModel(req.body);
+        newPlan._id = _id;
+        const plan = await plansService.updateOnePlan(_id, newPlan)
+        response.json(plan);
+    } catch (error) {
+        next(error);
     }
 });
 
-router.delete("/plans/:_id", async function( req:Request, response:Response ){
+router.delete("/plans/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        await plansService.deleteOnePlan( _id )
+        await plansService.deleteOnePlan(_id)
         response.sendStatus(204);
-    } catch (error) { 
-        response.status(400).json( error.message );
+    } catch (error) {
+        next(error);
     }
 });
 
-router.post("/plans", async function( req:Request, response:Response ){ 
+router.post("/plans", async function (req: Request, response: Response, next: NextFunction) {
     try {
-        const plan = new PlansModel( req.body );
-        const newPlan = await plansService.saveOnePlan( plan );
-        response.json( newPlan );
-    } catch (error) { 
-        response.status(400).json( error.message );
+        const plan = new PlansModel(req.body);
+        const newPlan = await plansService.saveOnePlan(plan);
+        response.json(newPlan);
+    } catch (error) {
+        next(error);
     }
 });
 

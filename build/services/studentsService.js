@@ -35,8 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var studentsModel_1 = require("../models/studentsModel");
+var ValidationError_1 = __importDefault(require("../utils/ValidationError"));
 function getAllStudents() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -53,10 +57,14 @@ function getOneStudent(_id) {
 }
 function saveOneStudent(student) {
     return __awaiter(this, void 0, void 0, function () {
-        var newStudent;
+        var err, newStudent;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, student.save()];
+                case 0:
+                    err = student.validateSync();
+                    if (err)
+                        throw new ValidationError_1.default(err.message);
+                    return [4 /*yield*/, student.save()];
                 case 1:
                     newStudent = _a.sent();
                     return [2 /*return*/, newStudent];
@@ -66,10 +74,14 @@ function saveOneStudent(student) {
 }
 function updateOneStudent(_id, student) {
     return __awaiter(this, void 0, void 0, function () {
-        var newStudent;
+        var err, newStudent;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, studentsModel_1.StudentsModel.findByIdAndUpdate(_id, student, { returnOriginal: false })];
+                case 0:
+                    err = student.validateSync();
+                    if (err)
+                        throw new ValidationError_1.default(err.message);
+                    return [4 /*yield*/, studentsModel_1.StudentsModel.findByIdAndUpdate(_id, student, { returnOriginal: false })];
                 case 1:
                     newStudent = _a.sent();
                     return [2 /*return*/, newStudent];
@@ -79,10 +91,16 @@ function updateOneStudent(_id, student) {
 }
 function deleteOneStudent(_id) {
     return __awaiter(this, void 0, void 0, function () {
+        var student;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, studentsModel_1.StudentsModel.findByIdAndDelete(_id)];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 0: return [4 /*yield*/, getOneStudent(_id)];
+                case 1:
+                    student = _a.sent();
+                    if (!student)
+                        throw new ValidationError_1.default("student not found");
+                    return [4 /*yield*/, studentsModel_1.StudentsModel.findByIdAndDelete(_id)];
+                case 2: return [2 /*return*/, _a.sent()];
             }
         });
     });

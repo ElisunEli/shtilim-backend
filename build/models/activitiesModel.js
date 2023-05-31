@@ -1,16 +1,12 @@
-import mongoose from "mongoose"
-
-// 1. interface
-export interface IActivitiesModel extends mongoose.Document{
-    name: string,
-    description: string,
-    planId: string,
-    studentId: string,
-    grade: number
-}
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ActivitiesModel = exports.ActivitiesSchema = void 0;
+var mongoose_1 = __importDefault(require("mongoose"));
 // 2. schema
-export const ActivitiesSchema = new mongoose.Schema<IActivitiesModel>({
+exports.ActivitiesSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
         required: [true, "Missing first name"],
@@ -35,7 +31,6 @@ export const ActivitiesSchema = new mongoose.Schema<IActivitiesModel>({
         required: [true, "Missing grade"],
         trim: true
     }
-})
-
+});
 // 3. Model
-export const ActivitiesModel = mongoose.model<IActivitiesModel>("ActivitiesModel", ActivitiesSchema, 'activities');
+exports.ActivitiesModel = mongoose_1.default.model("ActivitiesModel", exports.ActivitiesSchema, 'activities');

@@ -35,8 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var usersModel_1 = require("../models/usersModel");
+var ValidationError_1 = __importDefault(require("../utils/ValidationError"));
 function getOneUser(_id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -53,10 +57,14 @@ function getAllUsers() {
 }
 function saveOneUser(user) {
     return __awaiter(this, void 0, void 0, function () {
-        var newUser;
+        var err, newUser;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, user.save()];
+                case 0:
+                    err = user.validateSync();
+                    if (err)
+                        throw new ValidationError_1.default(err.message);
+                    return [4 /*yield*/, user.save()];
                 case 1:
                     newUser = _a.sent();
                     return [2 /*return*/, newUser];
@@ -64,8 +72,43 @@ function saveOneUser(user) {
         });
     });
 }
+function updateOneUser(_id, user) {
+    return __awaiter(this, void 0, void 0, function () {
+        var err, newUser;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    err = user.validateSync();
+                    if (err)
+                        throw new ValidationError_1.default(err.message);
+                    return [4 /*yield*/, usersModel_1.UsersModel.findByIdAndUpdate(_id, user, { returnOriginal: false })];
+                case 1:
+                    newUser = _a.sent();
+                    return [2 /*return*/, newUser];
+            }
+        });
+    });
+}
+function deleteOneUser(_id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var user;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, getOneUser(_id)];
+                case 1:
+                    user = _a.sent();
+                    if (!user)
+                        throw new ValidationError_1.default("user not found");
+                    return [4 /*yield*/, usersModel_1.UsersModel.findByIdAndDelete(_id)];
+                case 2: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
 exports.default = {
     getOneUser: getOneUser,
     saveOneUser: saveOneUser,
-    getAllUsers: getAllUsers
+    getAllUsers: getAllUsers,
+    updateOneUser: updateOneUser,
+    deleteOneUser: deleteOneUser
 };

@@ -1,4 +1,5 @@
 import { IPlansModel, PlansModel } from "../models/plansModel";
+import ValidationError from "../utils/ValidationError";
 
 
 async function getAllPlans():Promise<IPlansModel[]>{
@@ -10,16 +11,26 @@ async function getOnePlan( _id: string ):Promise<IPlansModel[]>{
 }
 
 async function saveOnePlan( plan:IPlansModel ):Promise<IPlansModel>{
+    const err = plan.validateSync();
+    if (err)
+        throw new ValidationError(err.message);
     const newPlan = await plan.save();
     return newPlan;
 }
 
 async function updateOnePlan( _id: string, plan:IPlansModel ):Promise<IPlansModel>{
+    const err = plan.validateSync();
+    if (err)
+        throw new ValidationError(err.message);
     const newPlan = await PlansModel.findByIdAndUpdate( _id, plan, { returnOriginal: false } );
     return newPlan;
 }
 
 async function deleteOnePlan( _id: string ):Promise<void>{
+    const plan = await getOnePlan(_id);
+    if (!plan)
+        throw new ValidationError("plan not found");
+
     return await PlansModel.findByIdAndDelete( _id );
 }
 

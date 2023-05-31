@@ -48,6 +48,7 @@ function connect() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
+                    console.log(Config_1.default.connectionString);
                     return [4 /*yield*/, mongoose_1.default.connect(Config_1.default.connectionString)];
                 case 1:
                     db = _a.sent();
