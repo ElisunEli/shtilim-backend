@@ -40,20 +40,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var studentsService_1 = __importDefault(require("../services/studentsService"));
-var studentsModel_1 = require("../models/studentsModel");
+var activitiesService_1 = __importDefault(require("../services/activitiesService"));
+var activitiesModel_1 = require("../models/activitiesModel");
 var router = express_1.default.Router();
-router.get("/students", function (req, response, next) {
+router.get("/activities", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var students, error_1;
+        var activities, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, studentsService_1.default.getAllStudents()];
+                    return [4 /*yield*/, activitiesService_1.default.getAllActivities()];
                 case 1:
-                    students = _a.sent();
-                    response.json(students);
+                    activities = _a.sent();
+                    response.json(activities);
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();
@@ -64,18 +64,18 @@ router.get("/students", function (req, response, next) {
         });
     });
 });
-router.get("/students/:_id", function (req, response, next) {
+router.get("/activities/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, student, error_2;
+        var _id, activitie, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     _id = req.params._id;
-                    return [4 /*yield*/, studentsService_1.default.getOneStudent(_id)];
+                    return [4 /*yield*/, activitiesService_1.default.getOneActivitie(_id)];
                 case 1:
-                    student = _a.sent();
-                    response.json(student);
+                    activitie = _a.sent();
+                    response.json(activitie);
                     return [3 /*break*/, 3];
                 case 2:
                     error_2 = _a.sent();
@@ -86,20 +86,20 @@ router.get("/students/:_id", function (req, response, next) {
         });
     });
 });
-router.put("/students/:_id", function (req, response, next) {
+router.put("/activities/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, newStudent, student, error_3;
+        var _id, newActivitie, activitie, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     _id = req.params._id;
-                    newStudent = new studentsModel_1.StudentsModel(req.body);
-                    newStudent._id = _id;
-                    return [4 /*yield*/, studentsService_1.default.updateOneStudent(_id, newStudent)];
+                    newActivitie = new activitiesModel_1.ActivitiesModel(req.body);
+                    newActivitie._id = _id;
+                    return [4 /*yield*/, activitiesService_1.default.updateOneActivitie(_id, newActivitie)];
                 case 1:
-                    student = _a.sent();
-                    response.json(student);
+                    activitie = _a.sent();
+                    response.json(activitie);
                     return [3 /*break*/, 3];
                 case 2:
                     error_3 = _a.sent();
@@ -110,7 +110,7 @@ router.put("/students/:_id", function (req, response, next) {
         });
     });
 });
-router.delete("/students/:_id", function (req, response, next) {
+router.delete("/activities/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
         var _id, error_4;
         return __generator(this, function (_a) {
@@ -118,7 +118,7 @@ router.delete("/students/:_id", function (req, response, next) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     _id = req.params._id;
-                    return [4 /*yield*/, studentsService_1.default.deleteOneStudent(_id)];
+                    return [4 /*yield*/, activitiesService_1.default.deleteOneActivitie(_id)];
                 case 1:
                     _a.sent();
                     response.sendStatus(204);
@@ -132,22 +132,21 @@ router.delete("/students/:_id", function (req, response, next) {
         });
     });
 });
-router.post("/students", function (req, response, next) {
+router.post("/activities", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var student, newStudent, error_5;
+        var activitie, newActivitie, error_5;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    student = new studentsModel_1.StudentsModel(req.body);
-                    return [4 /*yield*/, studentsService_1.default.saveOneStudent(student)];
+                    activitie = new activitiesModel_1.ActivitiesModel(req.body);
+                    return [4 /*yield*/, activitiesService_1.default.saveOneActivitie(activitie)];
                 case 1:
-                    newStudent = _a.sent();
-                    response.json(newStudent);
+                    newActivitie = _a.sent();
+                    response.json(newActivitie);
                     return [3 /*break*/, 3];
                 case 2:
                     error_5 = _a.sent();
-                    console.log(error_5);
                     next(error_5);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];

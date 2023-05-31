@@ -1,57 +1,58 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import groupsService from "../services/groupsService";
 import { GroupsModel } from "../models/groupsModel";
 
 const router = express.Router();
 
 
-router.get("/groups", async function( req:Request, response:Response ){
+router.get("/groups", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const groups = await groupsService.getAllGroups()
-        response.json( groups );
-    } catch (error) { 
-        response.status(400).json( error.message );
+        response.json(groups);
+    } catch (error) {
+        next(error);
     }
 });
 
-router.get("/groups/:_id", async function( req:Request, response:Response ){
+router.get("/groups/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        const group = await groupsService.getOneGroup( _id )
-        response.json( group );
-    } catch (error) { 
-        response.status(400).json( error.message );
+        const group = await groupsService.getOneGroup(_id)
+        response.json(group);
+    } catch (error) {
+        next(error);
     }
 });
 
-router.put("/groups/:_id", async function( req:Request, response:Response ){
+router.put("/groups/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        const newGroup = new GroupsModel( req.body );
-        const group = await groupsService.updateOneGroup( _id, newGroup )
-        response.json( group );
-    } catch (error) { 
-        response.status(400).json( error.message );
+        const newGroup = new GroupsModel(req.body);
+        newGroup._id = _id;
+        const group = await groupsService.updateOneGroup(_id, newGroup)
+        response.json(group);
+    } catch (error) {
+        next(error);
     }
 });
 
-router.delete("/groups/:_id", async function( req:Request, response:Response ){
+router.delete("/groups/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        await groupsService.deleteOneGroup( _id )
+        await groupsService.deleteOneGroup(_id)
         response.sendStatus(204);
-    } catch (error) { 
-        response.status(400).json( error.message );
+    } catch (error) {
+        next(error);
     }
 });
 
-router.post("/groups", async function( req:Request, response:Response ){ 
+router.post("/groups", async function (req: Request, response: Response, next: NextFunction) {
     try {
-        const group = new GroupsModel( req.body );
-        const newGroup = await groupsService.saveOneGroup( group );
-        response.json( newGroup );
-    } catch (error) { 
-        response.status(400).json( error.message );
+        const group = new GroupsModel(req.body);
+        const newGroup = await groupsService.saveOneGroup(group);
+        response.json(newGroup);
+    } catch (error) {
+        next(error);
     }
 });
 

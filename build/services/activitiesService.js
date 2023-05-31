@@ -39,119 +39,76 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var usersService_1 = __importDefault(require("../services/usersService"));
-var usersModel_1 = require("../models/usersModel");
-var router = express_1.default.Router();
-router.get("/users", function (req, response, next) {
+var activitiesModel_1 = require("../models/activitiesModel");
+var ValidationError_1 = __importDefault(require("../utils/ValidationError"));
+function getAllActivities() {
     return __awaiter(this, void 0, void 0, function () {
-        var users, error_1;
+        return __generator(this, function (_a) {
+            return [2 /*return*/, activitiesModel_1.ActivitiesModel.find()];
+        });
+    });
+}
+function getOneActivitie(_id) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, activitiesModel_1.ActivitiesModel.find({ _id: _id })];
+        });
+    });
+}
+function saveOneActivitie(activitie) {
+    return __awaiter(this, void 0, void 0, function () {
+        var err, newActivitie;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, usersService_1.default.getAllUsers()];
+                    err = activitie.validateSync();
+                    if (err)
+                        throw new ValidationError_1.default(err.message);
+                    return [4 /*yield*/, activitie.save()];
                 case 1:
-                    users = _a.sent();
-                    response.json(users);
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_1 = _a.sent();
-                    next(error_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    newActivitie = _a.sent();
+                    return [2 /*return*/, newActivitie];
             }
         });
     });
-});
-router.get("/users/:_id", function (req, response, next) {
+}
+function updateOneActivitie(_id, activitie) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, user, error_2;
+        var err, newActivitie;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    _id = req.params._id;
-                    return [4 /*yield*/, usersService_1.default.getOneUser(_id)];
+                    err = activitie.validateSync();
+                    if (err)
+                        throw new ValidationError_1.default(err.message);
+                    return [4 /*yield*/, activitiesModel_1.ActivitiesModel.findByIdAndUpdate(_id, activitie, { returnOriginal: false })];
                 case 1:
-                    user = _a.sent();
-                    response.json(user);
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_2 = _a.sent();
-                    next(error_2);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    newActivitie = _a.sent();
+                    return [2 /*return*/, newActivitie];
             }
         });
     });
-});
-router.put("/users/:_id", function (req, response, next) {
+}
+function deleteOneActivitie(_id) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, newUser, user, error_3;
+        var activity;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    _id = req.params._id;
-                    newUser = new usersModel_1.UsersModel(req.body);
-                    newUser._id = _id;
-                    return [4 /*yield*/, usersService_1.default.updateOneUser(_id, newUser)];
+                case 0: return [4 /*yield*/, getOneActivitie(_id)];
                 case 1:
-                    user = _a.sent();
-                    response.json(user);
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_3 = _a.sent();
-                    next(error_3);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    activity = _a.sent();
+                    if (!activity)
+                        throw new ValidationError_1.default("activity not found");
+                    return [4 /*yield*/, activitiesModel_1.ActivitiesModel.findByIdAndDelete(_id)];
+                case 2: return [2 /*return*/, _a.sent()];
             }
         });
     });
-});
-router.delete("/users/:_id", function (req, response, next) {
-    return __awaiter(this, void 0, void 0, function () {
-        var _id, error_4;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    _id = req.params._id;
-                    return [4 /*yield*/, usersService_1.default.deleteOneUser(_id)];
-                case 1:
-                    _a.sent();
-                    response.sendStatus(204);
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_4 = _a.sent();
-                    next(error_4);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-});
-router.post("/users", function (req, response, next) {
-    return __awaiter(this, void 0, void 0, function () {
-        var user, newUser, error_5;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    user = new usersModel_1.UsersModel(req.body);
-                    return [4 /*yield*/, usersService_1.default.saveOneUser(user)];
-                case 1:
-                    newUser = _a.sent();
-                    response.json(newUser);
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_5 = _a.sent();
-                    next(error_5);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-});
-exports.default = router;
+}
+exports.default = {
+    getAllActivities: getAllActivities,
+    getOneActivitie: getOneActivitie,
+    saveOneActivitie: saveOneActivitie,
+    updateOneActivitie: updateOneActivitie,
+    deleteOneActivitie: deleteOneActivitie
+};

@@ -1,16 +1,43 @@
 import mongoose from "mongoose"
 
+enum Role {
+    admin = "ADMIN",
+    user = "USER"
+}
+
 // 1. interface
 export interface IUsersModel extends mongoose.Document{
-    name: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    active: boolean,
+    role: Role
 }
 
 // 2. schema
 export const UsersSchema = new mongoose.Schema<IUsersModel>({
-    name: {
+    firstName: {
         type: String,
-        required: [true, "Missing name"],
+        required: [true, "Missing first name"],
         trim: true
+    },
+    lastName: {
+        type: String,
+        required: [true, "Missing last name"],
+        trim: true
+    },
+    email: {
+        type: String,
+        required: [true, "Missing mail"],
+        trim: true
+    },
+    active: {
+        type: Boolean,
+        required: [true, "Missing activation"]
+    },
+    role: {
+        type: String,
+        required: [true, "Missing role"]
     }
 })
 

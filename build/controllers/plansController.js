@@ -40,20 +40,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var studentsService_1 = __importDefault(require("../services/studentsService"));
-var studentsModel_1 = require("../models/studentsModel");
+var plansService_1 = __importDefault(require("../services/plansService"));
+var plansModel_1 = require("../models/plansModel");
 var router = express_1.default.Router();
-router.get("/students", function (req, response, next) {
+router.get("/plans", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var students, error_1;
+        var plans, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, studentsService_1.default.getAllStudents()];
+                    return [4 /*yield*/, plansService_1.default.getAllPlans()];
                 case 1:
-                    students = _a.sent();
-                    response.json(students);
+                    plans = _a.sent();
+                    response.json(plans);
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();
@@ -64,18 +64,18 @@ router.get("/students", function (req, response, next) {
         });
     });
 });
-router.get("/students/:_id", function (req, response, next) {
+router.get("/plans/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, student, error_2;
+        var _id, plan, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     _id = req.params._id;
-                    return [4 /*yield*/, studentsService_1.default.getOneStudent(_id)];
+                    return [4 /*yield*/, plansService_1.default.getOnePlan(_id)];
                 case 1:
-                    student = _a.sent();
-                    response.json(student);
+                    plan = _a.sent();
+                    response.json(plan);
                     return [3 /*break*/, 3];
                 case 2:
                     error_2 = _a.sent();
@@ -86,20 +86,20 @@ router.get("/students/:_id", function (req, response, next) {
         });
     });
 });
-router.put("/students/:_id", function (req, response, next) {
+router.put("/plans/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, newStudent, student, error_3;
+        var _id, newPlan, plan, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     _id = req.params._id;
-                    newStudent = new studentsModel_1.StudentsModel(req.body);
-                    newStudent._id = _id;
-                    return [4 /*yield*/, studentsService_1.default.updateOneStudent(_id, newStudent)];
+                    newPlan = new plansModel_1.PlansModel(req.body);
+                    newPlan._id = _id;
+                    return [4 /*yield*/, plansService_1.default.updateOnePlan(_id, newPlan)];
                 case 1:
-                    student = _a.sent();
-                    response.json(student);
+                    plan = _a.sent();
+                    response.json(plan);
                     return [3 /*break*/, 3];
                 case 2:
                     error_3 = _a.sent();
@@ -110,7 +110,7 @@ router.put("/students/:_id", function (req, response, next) {
         });
     });
 });
-router.delete("/students/:_id", function (req, response, next) {
+router.delete("/plans/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
         var _id, error_4;
         return __generator(this, function (_a) {
@@ -118,7 +118,7 @@ router.delete("/students/:_id", function (req, response, next) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     _id = req.params._id;
-                    return [4 /*yield*/, studentsService_1.default.deleteOneStudent(_id)];
+                    return [4 /*yield*/, plansService_1.default.deleteOnePlan(_id)];
                 case 1:
                     _a.sent();
                     response.sendStatus(204);
@@ -132,22 +132,21 @@ router.delete("/students/:_id", function (req, response, next) {
         });
     });
 });
-router.post("/students", function (req, response, next) {
+router.post("/plans", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var student, newStudent, error_5;
+        var plan, newPlan, error_5;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    student = new studentsModel_1.StudentsModel(req.body);
-                    return [4 /*yield*/, studentsService_1.default.saveOneStudent(student)];
+                    plan = new plansModel_1.PlansModel(req.body);
+                    return [4 /*yield*/, plansService_1.default.saveOnePlan(plan)];
                 case 1:
-                    newStudent = _a.sent();
-                    response.json(newStudent);
+                    newPlan = _a.sent();
+                    response.json(newPlan);
                     return [3 /*break*/, 3];
                 case 2:
                     error_5 = _a.sent();
-                    console.log(error_5);
                     next(error_5);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];

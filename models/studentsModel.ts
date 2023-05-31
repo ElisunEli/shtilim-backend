@@ -7,7 +7,7 @@ export interface IStudentsModel extends mongoose.Document{
     dateOfBirth: Date,
     gander: string,
     address: string,
-    createdIn: Date
+    createdIn: Date // not in frontend
     plans: string[],
     group: string
 }
