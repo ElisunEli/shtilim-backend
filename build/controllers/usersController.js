@@ -64,15 +64,16 @@ router.get("/users", function (req, response, next) {
         });
     });
 });
-router.get("/users/:_id", function (req, response, next) {
+router.get("/users/user-by-email/:email", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, user, error_2;
+        var email, user, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    _id = req.params._id;
-                    return [4 /*yield*/, usersService_1.default.getOneUser(_id)];
+                    email = req.params.email;
+                    console.log(email);
+                    return [4 /*yield*/, usersService_1.default.getUserByEmail(email)];
                 case 1:
                     user = _a.sent();
                     response.json(user);
@@ -86,17 +87,15 @@ router.get("/users/:_id", function (req, response, next) {
         });
     });
 });
-router.put("/users/:_id", function (req, response, next) {
+router.get("/users/user-by-id/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, newUser, user, error_3;
+        var _id, user, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     _id = req.params._id;
-                    newUser = new usersModel_1.UsersModel(req.body);
-                    newUser._id = _id;
-                    return [4 /*yield*/, usersService_1.default.updateOneUser(_id, newUser)];
+                    return [4 /*yield*/, usersService_1.default.getUserById(_id)];
                 case 1:
                     user = _a.sent();
                     response.json(user);
@@ -110,9 +109,33 @@ router.put("/users/:_id", function (req, response, next) {
         });
     });
 });
+router.put("/users/:_id", function (req, response, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _id, newUser, user, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    _id = req.params._id;
+                    newUser = new usersModel_1.UsersModel(req.body);
+                    newUser._id = _id;
+                    return [4 /*yield*/, usersService_1.default.updateOneUser(_id, newUser)];
+                case 1:
+                    user = _a.sent();
+                    response.json(user);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_4 = _a.sent();
+                    next(error_4);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+});
 router.delete("/users/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, error_4;
+        var _id, error_5;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -124,8 +147,8 @@ router.delete("/users/:_id", function (req, response, next) {
                     response.sendStatus(204);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_4 = _a.sent();
-                    next(error_4);
+                    error_5 = _a.sent();
+                    next(error_5);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -134,7 +157,7 @@ router.delete("/users/:_id", function (req, response, next) {
 });
 router.post("/users", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var user, newUser, error_5;
+        var user, newUser, error_6;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -146,8 +169,8 @@ router.post("/users", function (req, response, next) {
                     response.json(newUser);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_5 = _a.sent();
-                    next(error_5);
+                    error_6 = _a.sent();
+                    next(error_6);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }

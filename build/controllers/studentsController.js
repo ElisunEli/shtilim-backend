@@ -64,7 +64,7 @@ router.get("/students", function (req, response, next) {
         });
     });
 });
-router.get("/students/:_id", function (req, response, next) {
+router.get("/students/student-by-id/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
         var _id, student, error_2;
         return __generator(this, function (_a) {
@@ -72,7 +72,7 @@ router.get("/students/:_id", function (req, response, next) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     _id = req.params._id;
-                    return [4 /*yield*/, studentsService_1.default.getOneStudent(_id)];
+                    return [4 /*yield*/, studentsService_1.default.getStudentById(_id)];
                 case 1:
                     student = _a.sent();
                     response.json(student);
@@ -86,9 +86,53 @@ router.get("/students/:_id", function (req, response, next) {
         });
     });
 });
-router.put("/students/:_id", function (req, response, next) {
+router.get("/students/students-by-group/:group", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, newStudent, student, error_3;
+        var group, students, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    group = req.params.group;
+                    return [4 /*yield*/, studentsService_1.default.getAllStudentsByGroup(group)];
+                case 1:
+                    students = _a.sent();
+                    response.json(students);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_3 = _a.sent();
+                    next(error_3);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+});
+router.get("/students/students-by-plan/:plan", function (req, response, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var plan, students, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    plan = req.params.plan;
+                    return [4 /*yield*/, studentsService_1.default.getAllStudentsByPlan(plan)];
+                case 1:
+                    students = _a.sent();
+                    response.json(students);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_4 = _a.sent();
+                    next(error_4);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+});
+router.put("/students/update-by-id/:_id", function (req, response, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _id, newStudent, student, error_5;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -102,8 +146,54 @@ router.put("/students/:_id", function (req, response, next) {
                     response.json(student);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_3 = _a.sent();
-                    next(error_3);
+                    error_5 = _a.sent();
+                    next(error_5);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+});
+router.put("/students/add-plan-to-student/:_id", function (req, response, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _id, newPlan, student, error_6;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    _id = req.params._id;
+                    newPlan = req.body.plan;
+                    return [4 /*yield*/, studentsService_1.default.addPlanToStudent(_id, newPlan)];
+                case 1:
+                    student = _a.sent();
+                    response.json(student);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_6 = _a.sent();
+                    next(error_6);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+});
+router.put("/students/remove-plan-of-student/:_id", function (req, response, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _id, plan, student, error_7;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    _id = req.params._id;
+                    plan = req.body.plan;
+                    return [4 /*yield*/, studentsService_1.default.removePlanOfStudent(_id, plan)];
+                case 1:
+                    student = _a.sent();
+                    response.json(student);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_7 = _a.sent();
+                    next(error_7);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -112,7 +202,7 @@ router.put("/students/:_id", function (req, response, next) {
 });
 router.delete("/students/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, error_4;
+        var _id, error_8;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -124,8 +214,8 @@ router.delete("/students/:_id", function (req, response, next) {
                     response.sendStatus(204);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_4 = _a.sent();
-                    next(error_4);
+                    error_8 = _a.sent();
+                    next(error_8);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -134,7 +224,7 @@ router.delete("/students/:_id", function (req, response, next) {
 });
 router.post("/students", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var student, newStudent, error_5;
+        var student, newStudent, error_9;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -146,9 +236,9 @@ router.post("/students", function (req, response, next) {
                     response.json(newStudent);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_5 = _a.sent();
-                    console.log(error_5);
-                    next(error_5);
+                    error_9 = _a.sent();
+                    console.log(error_9);
+                    next(error_9);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }

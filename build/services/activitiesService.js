@@ -48,6 +48,15 @@ function getAllActivities() {
         });
     });
 }
+// async function getAllActivitiesByPlan():Promise<IActivitiesModel[]>{
+//     return ActivitiesModel.find();
+// }
+// async function getAllActivitiesByStudent():Promise<IActivitiesModel[]>{
+//     return ActivitiesModel.find();
+// }
+// async function getAllActivitiesByPlanAndStudent():Promise<IActivitiesModel[]>{
+//     return ActivitiesModel.find();
+// }
 function getOneActivitie(_id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {

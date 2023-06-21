@@ -48,10 +48,58 @@ function getAllStudents() {
         });
     });
 }
-function getOneStudent(_id) {
+function getAllStudentsByGroup(group) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, studentsModel_1.StudentsModel.find({ _id: _id })];
+            return [2 /*return*/, studentsModel_1.StudentsModel.find({ group: group })];
+        });
+    });
+}
+function getAllStudentsByPlan(plan) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, studentsModel_1.StudentsModel.find({ plans: plan }).exec()];
+        });
+    });
+}
+function getStudentById(_id) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, studentsModel_1.StudentsModel.findById(_id)];
+        });
+    });
+}
+function addPlanToStudent(_id, plan) {
+    return __awaiter(this, void 0, void 0, function () {
+        var student;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, getStudentById(_id)];
+                case 1:
+                    student = _a.sent();
+                    student.plans.push(plan);
+                    return [4 /*yield*/, updateOneStudent(_id, student)];
+                case 2: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+function removePlanOfStudent(_id, plan) {
+    return __awaiter(this, void 0, void 0, function () {
+        var student, planIndex;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, getStudentById(_id)];
+                case 1:
+                    student = _a.sent();
+                    planIndex = student.plans.indexOf(plan);
+                    if (planIndex === -1) {
+                        throw new ValidationError_1.default("Plan not found in student's plans");
+                    }
+                    student.plans.splice(planIndex, 1);
+                    return [4 /*yield*/, updateOneStudent(_id, student)];
+                case 2: return [2 /*return*/, _a.sent()];
+            }
         });
     });
 }
@@ -94,7 +142,7 @@ function deleteOneStudent(_id) {
         var student;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, getOneStudent(_id)];
+                case 0: return [4 /*yield*/, getStudentById(_id)];
                 case 1:
                     student = _a.sent();
                     if (!student)
@@ -107,7 +155,11 @@ function deleteOneStudent(_id) {
 }
 exports.default = {
     getAllStudents: getAllStudents,
-    getOneStudent: getOneStudent,
+    getAllStudentsByGroup: getAllStudentsByGroup,
+    getAllStudentsByPlan: getAllStudentsByPlan,
+    getStudentById: getStudentById,
+    addPlanToStudent: addPlanToStudent,
+    removePlanOfStudent: removePlanOfStudent,
     saveOneStudent: saveOneStudent,
     updateOneStudent: updateOneStudent,
     deleteOneStudent: deleteOneStudent

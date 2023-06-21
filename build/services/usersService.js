@@ -41,9 +41,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var usersModel_1 = require("../models/usersModel");
 var ValidationError_1 = __importDefault(require("../utils/ValidationError"));
-function getOneUser(_id) {
+function getUserById(_id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
+            console.log("now: " + _id);
             return [2 /*return*/, usersModel_1.UsersModel.find({ _id: _id })];
         });
     });
@@ -52,6 +53,13 @@ function getAllUsers() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             return [2 /*return*/, usersModel_1.UsersModel.find()];
+        });
+    });
+}
+function getUserByEmail(email) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, usersModel_1.UsersModel.find({ email: email })];
         });
     });
 }
@@ -94,7 +102,7 @@ function deleteOneUser(_id) {
         var user;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, getOneUser(_id)];
+                case 0: return [4 /*yield*/, getUserById(_id)];
                 case 1:
                     user = _a.sent();
                     if (!user)
@@ -106,9 +114,10 @@ function deleteOneUser(_id) {
     });
 }
 exports.default = {
-    getOneUser: getOneUser,
+    getUserById: getUserById,
     saveOneUser: saveOneUser,
     getAllUsers: getAllUsers,
+    getUserByEmail: getUserByEmail,
     updateOneUser: updateOneUser,
     deleteOneUser: deleteOneUser
 };

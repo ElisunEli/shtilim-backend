@@ -2,17 +2,20 @@ import { IUsersModel, UsersModel } from "../models/usersModel";
 import ValidationError from "../utils/ValidationError";
 
 
-async function getOneUser( _id: string ):Promise<IUsersModel[]>{
-    return UsersModel.find( { _id } );
+async function getUserById(_id: string): Promise<IUsersModel[]> {
+    console.log("now: " + _id)
+    return UsersModel.find({ _id });
 }
 
-async function getAllUsers():Promise<IUsersModel[]>{
+async function getAllUsers(): Promise<IUsersModel[]> {
     return UsersModel.find();
-    // return UsersModel.find( { age: { $gte: 20 } } );
-    // return UsersModel.find( { name: "Naf2" } );
 }
 
-async function saveOneUser( user:IUsersModel ):Promise<IUsersModel>{
+async function getUserByEmail(email: string): Promise<IUsersModel[]> {
+    return UsersModel.find({ email });
+}
+
+async function saveOneUser(user: IUsersModel): Promise<IUsersModel> {
     const err = user.validateSync();
     if (err)
         throw new ValidationError(err.message);
@@ -20,26 +23,27 @@ async function saveOneUser( user:IUsersModel ):Promise<IUsersModel>{
     return newUser;
 }
 
-async function updateOneUser( _id: string, user:IUsersModel ):Promise<IUsersModel>{
+async function updateOneUser(_id: string, user: IUsersModel): Promise<IUsersModel> {
     const err = user.validateSync();
     if (err)
         throw new ValidationError(err.message);
-    const newUser = await UsersModel.findByIdAndUpdate( _id, user, { returnOriginal: false } );
+    const newUser = await UsersModel.findByIdAndUpdate(_id, user, { returnOriginal: false });
     return newUser;
 }
 
-async function deleteOneUser( _id: string ):Promise<void>{
-    const user = await getOneUser(_id);
+async function deleteOneUser(_id: string): Promise<void> {
+    const user = await getUserById(_id);
     if (!user)
         throw new ValidationError("user not found");
 
-    return await UsersModel.findByIdAndDelete( _id );
+    return await UsersModel.findByIdAndDelete(_id);
 }
 
 export default {
-    getOneUser,
+    getUserById,
     saveOneUser,
     getAllUsers,
+    getUserByEmail,
     updateOneUser,
     deleteOneUser
 }
