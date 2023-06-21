@@ -14,10 +14,21 @@ router.get("/users", async function (req: Request, response: Response, next: Nex
     }
 });
 
-router.get("/users/:_id", async function (req: Request, response: Response, next: NextFunction) {
+router.get("/users/user-by-email/:email", async function (req: Request, response: Response, next: NextFunction) {
+    try {
+        const email = req.params.email;
+                console.log(email);
+const user = await usersService.getUserByEmail(email);
+        response.json(user);
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.get("/users/user-by-id/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        const user = await usersService.getOneUser(_id)
+        const user = await usersService.getUserById(_id)
         response.json(user);
     } catch (error) {
         next(error);

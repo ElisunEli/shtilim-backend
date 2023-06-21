@@ -6,6 +6,19 @@ async function getAllActivities():Promise<IActivitiesModel[]>{
     return ActivitiesModel.find();
 }
 
+// async function getAllActivitiesByPlan():Promise<IActivitiesModel[]>{
+//     return ActivitiesModel.find();
+// }
+
+// async function getAllActivitiesByStudent():Promise<IActivitiesModel[]>{
+//     return ActivitiesModel.find();
+// }
+
+// async function getAllActivitiesByPlanAndStudent():Promise<IActivitiesModel[]>{
+//     return ActivitiesModel.find();
+// }
+
+
 async function getOneActivitie( _id: string ):Promise<IActivitiesModel[]>{
     return ActivitiesModel.find( { _id } );
 }
