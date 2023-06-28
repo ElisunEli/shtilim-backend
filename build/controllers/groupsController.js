@@ -64,7 +64,7 @@ router.get("/groups", function (req, response, next) {
         });
     });
 });
-router.get("/groups/:_id", function (req, response, next) {
+router.get("/groups/group-by-id/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
         var _id, group, error_2;
         return __generator(this, function (_a) {
@@ -72,7 +72,7 @@ router.get("/groups/:_id", function (req, response, next) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     _id = req.params._id;
-                    return [4 /*yield*/, groupsService_1.default.getOneGroup(_id)];
+                    return [4 /*yield*/, groupsService_1.default.getGroupById(_id)];
                 case 1:
                     group = _a.sent();
                     response.json(group);

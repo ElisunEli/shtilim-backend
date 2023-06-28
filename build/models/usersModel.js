@@ -33,7 +33,8 @@ exports.UsersSchema = new mongoose_1.default.Schema({
     },
     role: {
         type: String,
-        required: [true, "Missing role"]
+        required: [true, "Missing role"],
+        enum: Object.values(Role)
     }
 });
 // 3. Model

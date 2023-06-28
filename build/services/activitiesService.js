@@ -48,19 +48,31 @@ function getAllActivities() {
         });
     });
 }
-// async function getAllActivitiesByPlan():Promise<IActivitiesModel[]>{
-//     return ActivitiesModel.find();
-// }
-// async function getAllActivitiesByStudent():Promise<IActivitiesModel[]>{
-//     return ActivitiesModel.find();
-// }
-// async function getAllActivitiesByPlanAndStudent():Promise<IActivitiesModel[]>{
-//     return ActivitiesModel.find();
-// }
-function getOneActivitie(_id) {
+function getActivitieById(_id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, activitiesModel_1.ActivitiesModel.find({ _id: _id })];
+            return [2 /*return*/, activitiesModel_1.ActivitiesModel.findById(_id)];
+        });
+    });
+}
+function getAllActivitiesByPlan(planId) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, activitiesModel_1.ActivitiesModel.find({ planId: planId })];
+        });
+    });
+}
+function getAllActivitiesByStudent(studentId) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, activitiesModel_1.ActivitiesModel.find({ studentId: studentId })];
+        });
+    });
+}
+function getAllActivitiesByPlanAndStudent(planId, studentId) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, activitiesModel_1.ActivitiesModel.find({ planId: planId, studentId: studentId })];
         });
     });
 }
@@ -103,7 +115,7 @@ function deleteOneActivitie(_id) {
         var activity;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, getOneActivitie(_id)];
+                case 0: return [4 /*yield*/, getActivitieById(_id)];
                 case 1:
                     activity = _a.sent();
                     if (!activity)
@@ -116,7 +128,10 @@ function deleteOneActivitie(_id) {
 }
 exports.default = {
     getAllActivities: getAllActivities,
-    getOneActivitie: getOneActivitie,
+    getAllActivitiesByPlan: getAllActivitiesByPlan,
+    getAllActivitiesByStudent: getAllActivitiesByStudent,
+    getAllActivitiesByPlanAndStudent: getAllActivitiesByPlanAndStudent,
+    getActivitieById: getActivitieById,
     saveOneActivitie: saveOneActivitie,
     updateOneActivitie: updateOneActivitie,
     deleteOneActivitie: deleteOneActivitie

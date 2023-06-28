@@ -16,7 +16,7 @@ exports.GroupsSchema = new mongoose_1.default.Schema({
         type: String,
         trim: true
     },
-    teacher: {
+    userId: {
         type: String,
         trim: true
     }

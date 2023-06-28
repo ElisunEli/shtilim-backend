@@ -64,7 +64,7 @@ router.get("/activities", function (req, response, next) {
         });
     });
 });
-router.get("/activities/:_id", function (req, response, next) {
+router.get("/activities/activitiy-by-id/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
         var _id, activitie, error_2;
         return __generator(this, function (_a) {
@@ -72,7 +72,7 @@ router.get("/activities/:_id", function (req, response, next) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     _id = req.params._id;
-                    return [4 /*yield*/, activitiesService_1.default.getOneActivitie(_id)];
+                    return [4 /*yield*/, activitiesService_1.default.getActivitieById(_id)];
                 case 1:
                     activitie = _a.sent();
                     response.json(activitie);
@@ -86,17 +86,15 @@ router.get("/activities/:_id", function (req, response, next) {
         });
     });
 });
-router.put("/activities/:_id", function (req, response, next) {
+router.get("/activities/activities-by-plan/:plan", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, newActivitie, activitie, error_3;
+        var plan, activitie, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    _id = req.params._id;
-                    newActivitie = new activitiesModel_1.ActivitiesModel(req.body);
-                    newActivitie._id = _id;
-                    return [4 /*yield*/, activitiesService_1.default.updateOneActivitie(_id, newActivitie)];
+                    plan = req.params.plan;
+                    return [4 /*yield*/, activitiesService_1.default.getAllActivitiesByPlan(plan)];
                 case 1:
                     activitie = _a.sent();
                     response.json(activitie);
@@ -110,9 +108,79 @@ router.put("/activities/:_id", function (req, response, next) {
         });
     });
 });
+router.get("/activities/activities-by-student/:student", function (req, response, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var student, activitie, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    student = req.params.student;
+                    console.log(student);
+                    return [4 /*yield*/, activitiesService_1.default.getAllActivitiesByStudent(student)];
+                case 1:
+                    activitie = _a.sent();
+                    response.json(activitie);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_4 = _a.sent();
+                    next(error_4);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+});
+router.get("/activities/activities-by-plan-and-student/:plan/:student", function (req, response, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var plan, student, activities, error_5;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    plan = req.params.plan;
+                    student = req.params.student;
+                    return [4 /*yield*/, activitiesService_1.default.getAllActivitiesByPlanAndStudent(plan, student)];
+                case 1:
+                    activities = _a.sent();
+                    response.json(activities);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_5 = _a.sent();
+                    next(error_5);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+});
+router.put("/activities/update-by-id/:_id", function (req, response, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _id, newActivitie, activitie, error_6;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    _id = req.params._id;
+                    newActivitie = new activitiesModel_1.ActivitiesModel(req.body);
+                    newActivitie._id = _id;
+                    return [4 /*yield*/, activitiesService_1.default.updateOneActivitie(_id, newActivitie)];
+                case 1:
+                    activitie = _a.sent();
+                    response.json(activitie);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_6 = _a.sent();
+                    next(error_6);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+});
 router.delete("/activities/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _id, error_4;
+        var _id, error_7;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -124,8 +192,8 @@ router.delete("/activities/:_id", function (req, response, next) {
                     response.sendStatus(204);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_4 = _a.sent();
-                    next(error_4);
+                    error_7 = _a.sent();
+                    next(error_7);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -134,7 +202,7 @@ router.delete("/activities/:_id", function (req, response, next) {
 });
 router.post("/activities", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var activitie, newActivitie, error_5;
+        var activitie, newActivitie, error_8;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -146,8 +214,8 @@ router.post("/activities", function (req, response, next) {
                     response.json(newActivitie);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_5 = _a.sent();
-                    next(error_5);
+                    error_8 = _a.sent();
+                    next(error_8);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
