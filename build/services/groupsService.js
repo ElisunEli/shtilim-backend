@@ -48,10 +48,10 @@ function getAllGroups() {
         });
     });
 }
-function getOneGroup(_id) {
+function getGroupById(_id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, groupsModel_1.GroupsModel.find({ _id: _id })];
+            return [2 /*return*/, groupsModel_1.GroupsModel.findById(_id)];
         });
     });
 }
@@ -94,7 +94,7 @@ function deleteOneGroup(_id) {
         var group;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, getOneGroup(_id)];
+                case 0: return [4 /*yield*/, getGroupById(_id)];
                 case 1:
                     group = _a.sent();
                     if (!group)
@@ -107,7 +107,7 @@ function deleteOneGroup(_id) {
 }
 exports.default = {
     getAllGroups: getAllGroups,
-    getOneGroup: getOneGroup,
+    getGroupById: getGroupById,
     saveOneGroup: saveOneGroup,
     updateOneGroup: updateOneGroup,
     deleteOneGroup: deleteOneGroup

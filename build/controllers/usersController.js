@@ -72,7 +72,6 @@ router.get("/users/user-by-email/:email", function (req, response, next) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     email = req.params.email;
-                    console.log(email);
                     return [4 /*yield*/, usersService_1.default.getUserByEmail(email)];
                 case 1:
                     user = _a.sent();

@@ -64,7 +64,7 @@ router.get("/plans", function (req, response, next) {
         });
     });
 });
-router.get("/plans/:_id", function (req, response, next) {
+router.get("/plans/plan-by-id/:_id", function (req, response, next) {
     return __awaiter(this, void 0, void 0, function () {
         var _id, plan, error_2;
         return __generator(this, function (_a) {
@@ -72,7 +72,7 @@ router.get("/plans/:_id", function (req, response, next) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     _id = req.params._id;
-                    return [4 /*yield*/, plansService_1.default.getOnePlan(_id)];
+                    return [4 /*yield*/, plansService_1.default.getPlanById(_id)];
                 case 1:
                     plan = _a.sent();
                     response.json(plan);
@@ -140,6 +140,7 @@ router.post("/plans", function (req, response, next) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     plan = new plansModel_1.PlansModel(req.body);
+                    console.log(plan);
                     return [4 /*yield*/, plansService_1.default.saveOnePlan(plan)];
                 case 1:
                     newPlan = _a.sent();

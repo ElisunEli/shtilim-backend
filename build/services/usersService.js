@@ -44,8 +44,7 @@ var ValidationError_1 = __importDefault(require("../utils/ValidationError"));
 function getUserById(_id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            console.log("now: " + _id);
-            return [2 /*return*/, usersModel_1.UsersModel.find({ _id: _id })];
+            return [2 /*return*/, usersModel_1.UsersModel.findById(_id)];
         });
     });
 }

@@ -48,10 +48,10 @@ function getAllPlans() {
         });
     });
 }
-function getOnePlan(_id) {
+function getPlanById(_id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, plansModel_1.PlansModel.find({ _id: _id })];
+            return [2 /*return*/, plansModel_1.PlansModel.findById(_id)];
         });
     });
 }
@@ -94,7 +94,7 @@ function deleteOnePlan(_id) {
         var plan;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, getOnePlan(_id)];
+                case 0: return [4 /*yield*/, getPlanById(_id)];
                 case 1:
                     plan = _a.sent();
                     if (!plan)
@@ -107,7 +107,7 @@ function deleteOnePlan(_id) {
 }
 exports.default = {
     getAllPlans: getAllPlans,
-    getOnePlan: getOnePlan,
+    getPlanById: getPlanById,
     saveOnePlan: saveOnePlan,
     updateOnePlan: updateOnePlan,
     deleteOnePlan: deleteOnePlan

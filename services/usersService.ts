@@ -2,9 +2,8 @@ import { IUsersModel, UsersModel } from "../models/usersModel";
 import ValidationError from "../utils/ValidationError";
 
 
-async function getUserById(_id: string): Promise<IUsersModel[]> {
-    console.log("now: " + _id)
-    return UsersModel.find({ _id });
+async function getUserById(_id: string): Promise<IUsersModel> {
+    return UsersModel.findById(_id);
 }
 
 async function getAllUsers(): Promise<IUsersModel[]> {

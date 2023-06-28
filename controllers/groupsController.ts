@@ -14,10 +14,10 @@ router.get("/groups", async function (req: Request, response: Response, next: Ne
     }
 });
 
-router.get("/groups/:_id", async function (req: Request, response: Response, next: NextFunction) {
+router.get("/groups/group-by-id/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        const group = await groupsService.getOneGroup(_id)
+        const group = await groupsService.getGroupById(_id)
         response.json(group);
     } catch (error) {
         next(error);

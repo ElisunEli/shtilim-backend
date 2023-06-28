@@ -6,8 +6,8 @@ async function getAllGroups():Promise<IGroupsModel[]>{
     return GroupsModel.find();
 }
 
-async function getOneGroup( _id: string ):Promise<IGroupsModel[]>{
-    return GroupsModel.find( { _id } );
+async function getGroupById( _id: string ):Promise<IGroupsModel>{
+    return GroupsModel.findById(_id);
 }
 
 async function saveOneGroup( group:IGroupsModel ):Promise<IGroupsModel>{
@@ -27,7 +27,7 @@ async function updateOneGroup( _id: string, group:IGroupsModel ):Promise<IGroups
 }
 
 async function deleteOneGroup( _id: string ):Promise<void>{
-    const group = await getOneGroup(_id);
+    const group = await getGroupById(_id);
     if (!group)
         throw new ValidationError("group not found");
 
@@ -36,7 +36,7 @@ async function deleteOneGroup( _id: string ):Promise<void>{
 
 export default {
     getAllGroups,
-    getOneGroup,
+    getGroupById,
     saveOneGroup,
     updateOneGroup,
     deleteOneGroup

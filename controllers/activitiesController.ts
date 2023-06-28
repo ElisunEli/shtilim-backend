@@ -14,17 +14,49 @@ router.get("/activities", async function (req: Request, response: Response, next
     }
 });
 
-router.get("/activities/:_id", async function (req: Request, response: Response, next: NextFunction) {
+router.get("/activities/activitiy-by-id/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        const activitie = await activitiesService.getOneActivitie(_id)
+        const activitie = await activitiesService.getActivitieById(_id)
         response.json(activitie);
     } catch (error) {
         next(error);
     }
 });
 
-router.put("/activities/:_id", async function (req: Request, response: Response, next: NextFunction) {
+router.get("/activities/activities-by-plan/:plan", async function (req: Request, response: Response, next: NextFunction) {
+    try {
+        const plan = req.params.plan
+        const activitie = await activitiesService.getAllActivitiesByPlan(plan)
+        response.json(activitie);
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.get("/activities/activities-by-student/:student", async function (req: Request, response: Response, next: NextFunction) {
+    try {
+        const student = req.params.student
+        console.log(student);
+        const activitie = await activitiesService.getAllActivitiesByStudent(student)
+        response.json(activitie);
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.get("/activities/activities-by-plan-and-student/:plan/:student", async function (req: Request, response: Response, next: NextFunction) {
+    try {
+        const plan = req.params.plan;
+        const student = req.params.student;
+        const activities = await activitiesService.getAllActivitiesByPlanAndStudent(plan, student);
+        response.json(activities);
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.put("/activities/update-by-id/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
         const newActivitie = new ActivitiesModel(req.body);
