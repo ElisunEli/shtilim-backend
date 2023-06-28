@@ -4,7 +4,7 @@ import mongoose from "mongoose"
 export interface IGroupsModel extends mongoose.Document{
     name: string,
     description: string,
-    teacher: string
+    userId: string
 }
 
 // 2. schema
@@ -18,11 +18,10 @@ export const GroupsSchema = new mongoose.Schema<IGroupsModel>({
         type: String,
         trim: true
     },
-    teacher: {
+    userId: {
         type: String,
         trim: true
     }
-    
 })
 
 // 3. Model

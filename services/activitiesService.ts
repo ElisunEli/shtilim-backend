@@ -6,21 +6,20 @@ async function getAllActivities():Promise<IActivitiesModel[]>{
     return ActivitiesModel.find();
 }
 
-// async function getAllActivitiesByPlan():Promise<IActivitiesModel[]>{
-//     return ActivitiesModel.find();
-// }
+async function getActivitieById( _id: string ):Promise<IActivitiesModel>{
+    return ActivitiesModel.findById(_id);
+}
 
-// async function getAllActivitiesByStudent():Promise<IActivitiesModel[]>{
-//     return ActivitiesModel.find();
-// }
+async function getAllActivitiesByPlan(planId: string):Promise<IActivitiesModel[]>{
+    return ActivitiesModel.find({ planId });
+}
 
-// async function getAllActivitiesByPlanAndStudent():Promise<IActivitiesModel[]>{
-//     return ActivitiesModel.find();
-// }
+async function getAllActivitiesByStudent(studentId: string):Promise<IActivitiesModel[]>{
+    return ActivitiesModel.find({ studentId });
+}
 
-
-async function getOneActivitie( _id: string ):Promise<IActivitiesModel[]>{
-    return ActivitiesModel.find( { _id } );
+async function getAllActivitiesByPlanAndStudent(planId: string, studentId: string): Promise<IActivitiesModel[]> {
+    return ActivitiesModel.find({ planId, studentId });
 }
 
 async function saveOneActivitie( activitie:IActivitiesModel ):Promise<IActivitiesModel>{
@@ -40,7 +39,7 @@ async function updateOneActivitie( _id: string, activitie:IActivitiesModel ):Pro
 }
 
 async function deleteOneActivitie( _id: string ):Promise<void>{
-    const activity = await getOneActivitie(_id);
+    const activity = await getActivitieById(_id);
     if (!activity)
         throw new ValidationError("activity not found");
 
@@ -49,7 +48,10 @@ async function deleteOneActivitie( _id: string ):Promise<void>{
 
 export default {
     getAllActivities,
-    getOneActivitie,
+    getAllActivitiesByPlan,
+    getAllActivitiesByStudent,
+    getAllActivitiesByPlanAndStudent,
+    getActivitieById,
     saveOneActivitie,
     updateOneActivitie,
     deleteOneActivitie

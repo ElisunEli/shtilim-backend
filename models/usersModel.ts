@@ -37,7 +37,8 @@ export const UsersSchema = new mongoose.Schema<IUsersModel>({
     },
     role: {
         type: String,
-        required: [true, "Missing role"]
+        required: [true, "Missing role"],
+        enum: Object.values(Role)
     }
 })
 

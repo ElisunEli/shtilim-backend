@@ -1,25 +1,29 @@
 import mongoose from "mongoose"
 
 enum Type {
-    booleany = "BOOLEAN",
-    scalar = "SCALAR",
+    booleany = "תוכנית לפי הצלחה או לא",
+    scalar = "תוכנית לפי דירוג הצלחה"
 }
 
 enum ReportingType {
-    days = "DAILY",
-    hours  = "HOURLY",
-    minutes = "MINUTELY"
+    days = "יומי",
+    hours = "שעתי",
+    minutes = "דקתי"
+}
+
+class QuizModel {
+    title: string = "";
+    type: Type = Type.booleany;
+    answer: string[] = [];
 }
 
 // 1. interface
 export interface IPlansModel extends mongoose.Document{
     name: string,
     description: string,
-    type: Type,
-    gradeDescription: string[],
-    reportingTime :number,
-    reportingType :ReportingType,
-    WhatIsSuccess :number
+    reportingTime: number,
+    reportingType: ReportingType,
+    quiz: QuizModel[]
 }
 
 // 2. schema
@@ -33,22 +37,35 @@ export const PlansSchema = new mongoose.Schema<IPlansModel>({
         type: String,
         trim: true
     },
-    type: {
-        type: String,
-        required: [true, "Missing type"],
-        trim: true
-    },
-    gradeDescription: {
-        type: [],
-        trim: true
-    },
     reportingTime: {
         type: Number,
-        required: [true, "Missing time"]
+        required: [true, "Missing time"],
     },
     reportingType: {
         type: String,
-        required: [true, "Missing circulating"]
+        required: [true, "Missing circulating"],
+        enum: Object.values(ReportingType)
+    },
+    quiz: {
+        type: [
+            {
+                title: {
+                    type: String,
+                    required: [true, "Missing title"],
+                    trim: true
+                },
+                type: {
+                    type: String,
+                    required: [true, "Missing type"],
+                    enum: Object.values(Type)
+                },
+                answer: {
+                    type: [String],
+                    required: [true, "Missing answer"]
+                }
+            }
+        ],
+        required: [true, "Missing quiz"]
     }
 })
 

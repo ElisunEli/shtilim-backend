@@ -6,7 +6,8 @@ export interface IActivitiesModel extends mongoose.Document{
     description: string,
     planId: string,
     studentId: string,
-    grade: number
+    grade: number[],
+    createdIn: Date // not in frontend
 }
 
 // 2. schema
@@ -31,10 +32,15 @@ export const ActivitiesSchema = new mongoose.Schema<IActivitiesModel>({
         trim: true
     },
     grade: {
-        type: Number,
-        required: [true, "Missing grade"],
-        trim: true
-    }
+        type: [{ type: Number,
+                 min: 0,
+                 max: 4 }],
+        required: [true, "Missing grade"]
+    },
+    createdIn: {
+        type: Date,
+        default: Date.now()
+    },
 })
 
 // 3. Model

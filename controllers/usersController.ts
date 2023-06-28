@@ -17,8 +17,7 @@ router.get("/users", async function (req: Request, response: Response, next: Nex
 router.get("/users/user-by-email/:email", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const email = req.params.email;
-                console.log(email);
-const user = await usersService.getUserByEmail(email);
+        const user = await usersService.getUserByEmail(email);
         response.json(user);
     } catch (error) {
         next(error);

@@ -6,9 +6,10 @@ async function getAllPlans():Promise<IPlansModel[]>{
     return PlansModel.find();
 }
 
-async function getOnePlan( _id: string ):Promise<IPlansModel[]>{
-    return PlansModel.find( { _id } );
+async function getPlanById( _id: string ):Promise<IPlansModel>{
+    return PlansModel.findById(_id);
 }
+
 
 async function saveOnePlan( plan:IPlansModel ):Promise<IPlansModel>{
     const err = plan.validateSync();
@@ -27,7 +28,7 @@ async function updateOnePlan( _id: string, plan:IPlansModel ):Promise<IPlansMode
 }
 
 async function deleteOnePlan( _id: string ):Promise<void>{
-    const plan = await getOnePlan(_id);
+    const plan = await getPlanById(_id);
     if (!plan)
         throw new ValidationError("plan not found");
 
@@ -36,7 +37,7 @@ async function deleteOnePlan( _id: string ):Promise<void>{
 
 export default {
     getAllPlans,
-    getOnePlan,
+    getPlanById,
     saveOnePlan,
     updateOnePlan,
     deleteOnePlan

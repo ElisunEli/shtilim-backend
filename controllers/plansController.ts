@@ -14,10 +14,10 @@ router.get("/plans", async function (req: Request, response: Response, next: Nex
     }
 });
 
-router.get("/plans/:_id", async function (req: Request, response: Response, next: NextFunction) {
+router.get("/plans/plan-by-id/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        const plan = await plansService.getOnePlan(_id)
+        const plan = await plansService.getPlanById(_id)
         response.json(plan);
     } catch (error) {
         next(error);
@@ -49,6 +49,7 @@ router.delete("/plans/:_id", async function (req: Request, response: Response, n
 router.post("/plans", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const plan = new PlansModel(req.body);
+        console.log(plan)
         const newPlan = await plansService.saveOnePlan(plan);
         response.json(newPlan);
     } catch (error) {
