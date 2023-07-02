@@ -5,7 +5,7 @@ export interface IStudentsModel extends mongoose.Document{
     firstName: string,
     lastName: string,
     dateOfBirth: Date,
-    gander: string,
+    gender: string,
     address: string,
     createdIn: Date // not in frontend
     plans: string[],
@@ -28,7 +28,7 @@ export const StudentsSchema = new mongoose.Schema<IStudentsModel>({
         type: Date,
         required: [true, "Missing date of birth"]
     },
-    gander: {
+    gender: {
         type: String,
         required: [true, "Missing gander"],
         trim: true
