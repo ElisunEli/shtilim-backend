@@ -21,7 +21,7 @@ exports.StudentsSchema = new mongoose_1.default.Schema({
         type: Date,
         required: [true, "Missing date of birth"]
     },
-    gander: {
+    gender: {
         type: String,
         required: [true, "Missing gander"],
         trim: true
