@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express, { Request, Response } from "express";
+import catchAll from "./utils/CatchAll";
 import usersController from "./controllers/usersController"
 import studentsController from "./controllers/studentsController"
 import activitiesController from "./controllers/activitiesController"
@@ -9,9 +10,10 @@ import plansController from "./controllers/plansController"
 
 import cors from "cors"
 import dl from "./utils/dl";
-import catchAll from "./utils/CatchAll";
-
 dl.connect();
+
+
+
 
 const server = express();
 

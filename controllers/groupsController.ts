@@ -18,6 +18,7 @@ router.get("/groups/group-by-id/:_id", async function (req: Request, response: R
     try {
         const _id = req.params._id
         const group = await groupsService.getGroupById(_id)
+        if(!group) throw new Error("not group found")
         response.json(group);
     } catch (error) {
         next(error);
