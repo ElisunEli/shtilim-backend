@@ -37,15 +37,18 @@ export const PlansSchema = new mongoose.Schema<IPlansModel>({
         type: String,
         trim: true
     },
-    reportingTime: {
-        type: Number,
-        required: [true, "Missing time"],
-    },
+    
     reportingType: {
         type: String,
         required: [true, "Missing circulating"],
         enum: Object.values(ReportingType)
     },
+
+    reportingTime: {
+        type: Number,
+        required: [true, "Missing time"],
+    },
+    
     quiz: {
         type: [
             {

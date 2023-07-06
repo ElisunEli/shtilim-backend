@@ -14,7 +14,7 @@ router.get("/activities", async function (req: Request, response: Response, next
     }
 });
 
-router.get("/activities/activitiy-by-id/:_id", async function (req: Request, response: Response, next: NextFunction) {
+router.get("/activities/activity-by-id/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
         const activitie = await activitiesService.getActivitieById(_id)

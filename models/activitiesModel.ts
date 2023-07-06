@@ -2,8 +2,6 @@ import mongoose from "mongoose"
 
 // 1. interface
 export interface IActivitiesModel extends mongoose.Document{
-    name: string,
-    description: string,
     planId: string,
     studentId: string,
     grade: number[],
@@ -12,15 +10,6 @@ export interface IActivitiesModel extends mongoose.Document{
 
 // 2. schema
 export const ActivitiesSchema = new mongoose.Schema<IActivitiesModel>({
-    name: {
-        type: String,
-        required: [true, "Missing first name"],
-        trim: true
-    },
-    description: {
-        type: String,
-        trim: true
-    },
     planId: {
         type: String,
         required: [true, "Missing plan"],
@@ -32,9 +21,7 @@ export const ActivitiesSchema = new mongoose.Schema<IActivitiesModel>({
         trim: true
     },
     grade: {
-        type: [{ type: Number,
-                 min: 0,
-                 max: 4 }],
+        type: [Number],
         required: [true, "Missing grade"]
     },
     createdIn: {
