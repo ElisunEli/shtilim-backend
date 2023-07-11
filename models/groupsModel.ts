@@ -3,8 +3,8 @@ import mongoose from "mongoose"
 // 1. interface
 export interface IGroupsModel extends mongoose.Document{
     name: string,
-    description: string,
-    userId: string
+    teacher: string,
+  
 }
 
 // 2. schema
@@ -14,14 +14,11 @@ export const GroupsSchema = new mongoose.Schema<IGroupsModel>({
         required: [true, "Missing first name"],
         trim: true
     },
-    description: {
+    teacher: {
         type: String,
-        trim: true
-    },
-    userId: {
-        type: String,
-        trim: true
-    }
+        required: [true, "Missing teacher name"],
+        trim: true,
+      },
 })
 
 // 3. Model

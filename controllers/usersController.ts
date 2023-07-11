@@ -1,6 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
+// import usersService from "../services/usersService";
+import { IUsersModel, UsersModel } from "../models/usersModel";
 import usersService from "../services/usersService";
-import { UsersModel } from "../models/usersModel";
+
+  
 
 const router = express.Router();
 
@@ -14,15 +17,30 @@ router.get("/users", async function (req: Request, response: Response, next: Nex
     }
 });
 
+// router.get("/users/user-by-email/:email", async function (req: Request, response: Response, next: NextFunction) {
+//     try {
+//         const email = req.params.email;
+//         const user = await usersService.getUserByEmail(email);
+//         response.json(user);
+//     } catch (error) {
+//         next(error);
+//     }
+// });
 router.get("/users/user-by-email/:email", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const email = req.params.email;
-        const user = await usersService.getUserByEmail(email);
-        response.json(user);
+        
+        // Assuming the 'usersService' object has a 'doesUserExistByEmail' method
+        const userExists = await usersService.doesUserExistByEmail(email);
+        
+        response.json(userExists);
     } catch (error) {
         next(error);
     }
 });
+
+
+
 
 router.get("/users/user-by-id/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
@@ -34,7 +52,7 @@ router.get("/users/user-by-id/:_id", async function (req: Request, response: Res
     }
 });
 
-router.put("/users/:_id", async function (req: Request, response: Response, next: NextFunction) {
+router.put("/users/update-by-id/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
         const newUser = new UsersModel(req.body);
