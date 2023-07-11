@@ -10,6 +10,8 @@ import plansController from "./controllers/plansController"
 
 import cors from "cors"
 import dl from "./utils/dl";
+import verifyLoggedIn from "./utils/verify-logged-in";
+import { auth } from "firebase-admin";
 dl.connect();
 
 
@@ -20,7 +22,8 @@ const server = express();
 server.use(cors());
 
 server.use(express.json());
-
+// server.use("/api", auth);
+server.use(verifyLoggedIn)
 server.use("/api", usersController);
 server.use("/api", studentsController);
 server.use("/api", activitiesController);
