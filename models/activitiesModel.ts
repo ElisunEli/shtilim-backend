@@ -5,7 +5,8 @@ export interface IActivitiesModel extends mongoose.Document{
     planId: string,
     studentId: string,
     grade: number[],
-    createdIn: Date // not in frontend
+    createdIn: Date, // not in frontend
+    userId: string
 }
 
 // 2. schema
@@ -27,6 +28,11 @@ export const ActivitiesSchema = new mongoose.Schema<IActivitiesModel>({
     createdIn: {
         type: Date,
         default: Date.now()
+    },
+    userId: {
+        type: String,
+        required: [true, "Missing user"],
+        trim: true
     },
 })
 
