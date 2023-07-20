@@ -5,12 +5,17 @@ import crypto from "crypto"
 
 const jwtSecretKey = "JohnBryceFullStackCourse";
 
+const expirationTime = 60 * 60; // 1 hour
+
+
 function getNewToken(user: IUsersModel ): string {
 
     delete user.password;
 
     const container = { user };
-    const token = jwt.sign(container, jwtSecretKey);
+    const token = jwt.sign(container, jwtSecretKey,{
+        expiresIn: expirationTime,
+      });
     return token;
 }
 

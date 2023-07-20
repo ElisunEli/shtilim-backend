@@ -1,5 +1,6 @@
+import { log } from "console";
 import { IUsersModel, UsersModel } from "../models/usersModel";
-import ValidationError from "../utils/ValidationError";
+import ValidationError, { UnauthorizedError } from "../utils/ValidationError";
 import cyber from "../utils/cyber";
 
 
@@ -12,13 +13,16 @@ async function login(email: string, password: string): Promise<string> {
 
     //hash the password
     const hashedPassword = cyber.hash(password);
-    const userArr = await UsersModel.find({ email, password: hashedPassword });
+    const userArr = await UsersModel.find({ email, password: hashedPassword });//
+    console.log(hashedPassword);
+    console.log(userArr);
+    
 
     if (userArr.length) {
         // Return action token
         return cyber.getNewToken(userArr[0]);
     }
-    throw new Error("No such user");
+    throw new UnauthorizedError("המשתמש לא נמצא");
 }
 
 async function getAllUsers(): Promise<IUsersModel[]> {

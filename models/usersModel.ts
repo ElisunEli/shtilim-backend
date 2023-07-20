@@ -2,7 +2,8 @@ import mongoose from "mongoose"
 
 export enum Role {
     admin = "ADMIN",
-    user = "USER"
+    programManager = "Program Manager",
+    reporter = "Reporter"
 }
 
 // 1. interface
