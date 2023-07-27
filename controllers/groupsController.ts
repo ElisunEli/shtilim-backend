@@ -50,7 +50,10 @@ router.delete("/groups/:_id", async function (req: Request, response: Response, 
 router.post("/groups", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const group = new GroupsModel(req.body);
+        console.log( group );
+        
         const newGroup = await groupsService.saveOneGroup(group);
+        console.log( group, "bb" );
         response.json(newGroup);
     } catch (error) {
         next(error);
