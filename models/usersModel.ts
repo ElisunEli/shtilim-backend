@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 export enum Role {
     admin = "ADMIN",
-    programManager = "Program Manager",
+    programManager = "PManager",
     reporter = "Reporter"
 }
 
@@ -11,7 +11,7 @@ export interface IUsersModel extends mongoose.Document{
     firstName: string,
     lastName: string,
     email: string,
-    password: string,
+    password?: string,
     active: boolean,
     role: Role
 }

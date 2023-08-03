@@ -34,10 +34,15 @@ async function deleteOneGroup( _id: string ):Promise<void>{
     return await GroupsModel.findByIdAndDelete( _id );
 }
 
+async function getAllGroupsByTeacher(teacherId: string): Promise<IGroupsModel[]> {
+    return GroupsModel.find({ teacher: teacherId });
+}
+
 export default {
     getAllGroups,
     getGroupById,
     saveOneGroup,
     updateOneGroup,
-    deleteOneGroup
+    deleteOneGroup,
+    getAllGroupsByTeacher
 }

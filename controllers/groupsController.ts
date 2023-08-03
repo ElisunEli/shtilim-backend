@@ -57,4 +57,15 @@ router.post("/groups", async function (req: Request, response: Response, next: N
     }
 });
 
+// Add a new route to fetch groups by teacher's ID
+router.get("/groups/by-teacher/:teacherId", async function (req: Request, response: Response, next: NextFunction) {
+    try {
+        const teacherId = req.params.teacherId;
+        const groups = await groupsService.getAllGroupsByTeacher(teacherId);
+        response.json(groups);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default router;

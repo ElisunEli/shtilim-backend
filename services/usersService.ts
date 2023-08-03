@@ -14,15 +14,15 @@ async function login(email: string, password: string): Promise<string> {
     //hash the password
     const hashedPassword = cyber.hash(password);
     const userArr = await UsersModel.find({ email, password: hashedPassword });//
-    console.log(hashedPassword);
-    console.log(userArr);
+    // console.log(hashedPassword);
+    // console.log(userArr);
     
 
     if (userArr.length) {
         // Return action token
         return cyber.getNewToken(userArr[0]);
     }
-    throw new UnauthorizedError("המשתמש לא נמצא");
+    throw new UnauthorizedError("המשתמש לא נמצא או סיסמה שגויה");
 }
 
 async function getAllUsers(): Promise<IUsersModel[]> {
