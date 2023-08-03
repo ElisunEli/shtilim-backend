@@ -1,6 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
 import studentsService from "../services/studentsService";
 import { StudentsModel } from "../models/studentsModel";
+import xlsx from 'xlsx';
+import { UploadedFile } from "express-fileupload";
 
 const router = express.Router();
 
@@ -59,7 +61,7 @@ router.put("/students/update-by-id/:_id", async function (req: Request, response
 router.put("/students/add-plan-to-student/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        const newPlan:string = req.body.plan;
+        const newPlan: string = req.body.plan;
         const student = await studentsService.addPlanToStudent(_id, newPlan);
         response.json(student);
     } catch (error) {
@@ -70,7 +72,7 @@ router.put("/students/add-plan-to-student/:_id", async function (req: Request, r
 router.put("/students/remove-plan-of-student/:_id", async function (req: Request, response: Response, next: NextFunction) {
     try {
         const _id = req.params._id
-        const plan:string = req.body.plan;
+        const plan: string = req.body.plan;
         const student = await studentsService.removePlanOfStudent(_id, plan);
         response.json(student);
     } catch (error) {
@@ -98,5 +100,51 @@ router.post("/students", async function (req: Request, response: Response, next:
         next(error);
     }
 });
+
+router.post("/students/importExcel", async function (req: Request, response: Response, next: NextFunction) {
+    try {
+
+        const test = req.body.test ? true : false;
+        const students = [];
+
+        const file: UploadedFile = req.files.list as UploadedFile;
+        
+        var workbook = xlsx.read(file.data, {
+            cellDates: true,
+        });
+
+        const sheetName = workbook.SheetNames[0];
+        const sheetData = workbook.Sheets[sheetName];
+
+        for (let row = 2; sheetData[`A${row}`]; row++) {
+
+            const firstName = sheetData[`A${row}`].v;
+            const lastName = sheetData[`B${row}`].v;
+            const dateOfBirth = sheetData[`C${row}`].v;
+            const gender = sheetData[`D${row}`].v;
+            const address = sheetData[`E${row}`].v;
+
+            const newStudent = new StudentsModel({
+                firstName,
+                lastName,
+                dateOfBirth,
+                gender,
+                address,
+            });
+
+            if( !test ) {
+                await newStudent.save();
+            }
+            
+            students.push(newStudent);
+        }
+
+        response.json(students);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+});
+
 
 export default router;
